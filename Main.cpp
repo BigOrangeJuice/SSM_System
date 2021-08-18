@@ -11,6 +11,13 @@ int main(){
 	Box box ;
 	box.size = 0 ;
 
+	//随时写入文档
+	FILE *fp ;
+	if((fp = fopen("SSM_System.txt","w")) == NULL){
+		printf("cannot open file\n") ;
+		exit(0) ;
+	}
+	fputs("序号\t学号\t\t姓名\t数学\t语文\t英语\n",fp) ;
 	//主界面
 	ShowMenu() ;
 	//选择
@@ -20,7 +27,7 @@ int main(){
 		scanf("%d",&key) ;
 		switch(key){
 		case 1://添加功能
-			Add(&box) ;
+			Add(&box,fp) ;
 			system("pause") ;
 			system("cls") ;
 			ShowMenu() ;
@@ -38,19 +45,19 @@ int main(){
 			ShowMenu() ;
 			break ;
 		case 4://编辑功能
-			Modify(&box) ;
+			Modify(&box,fp) ;
 			system("pause") ;
 			system("cls") ;
 			ShowMenu() ;
 			break ;
 		case 5://删除功能
-			Remove(&box) ;
+			Remove(&box,fp) ;
 			system("pause") ;
 			system("cls") ;
 			ShowMenu() ;
 			break ;
 		case 6://清空功能
-			Clear(&box) ;
+			Clear(&box,fp) ;
 			system("pause") ;
 			system("cls") ;
 			ShowMenu() ;
@@ -64,5 +71,6 @@ int main(){
 			break ;
 		}
 	}
+	fclose(fp) ;
 	return 0 ;
 }
